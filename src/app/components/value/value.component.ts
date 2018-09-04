@@ -1,5 +1,6 @@
+import { AuthService } from "./../../services/auth.service";
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: "app-value",
@@ -8,16 +9,15 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ValueComponent implements OnInit {
   values;
-  private url  = "http://localhost:5000/api/value";
-  constructor(private http: HttpClient) {}
+  private url = "http://localhost:5000/api/value";
+  constructor(private http: HttpClient, private authservice: AuthService) {}
 
-  ngOnInit() {
-    this.getValues();
-  }
-
-  getValues() {
-    this.http.get(this.url).subscribe(response => {
-      this.values = response;
-    });
-  }
+  ngOnInit() {}
+  // getValues() {
+  //   let httpheaders = new HttpHeaders({ token: this.authservice.userToken });
+  //   this.http.get(this.url, { headers: httpheaders }).subscribe(response => {
+  //     console.log(response);
+  //     this.values = response;
+  //   });
+  // }
 }
