@@ -22,6 +22,7 @@ import { ValueComponent } from "./components/value/value.component";
 import { HomeComponent } from "./components/home/home.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
+import { AlertifyService } from "./services/alertify.service";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { LoginComponent } from "./components/login/login.component";
       { path: "login", component: NavbarComponent }
     ])
   ],
-  providers: [AuthService, MatDialog],
+  providers: [AuthService, AlertifyService, MatDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
