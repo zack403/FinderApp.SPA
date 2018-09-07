@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
     this.alertservice.message("logged out");
   }
   loggedIn() {
-    let token = localStorage.getItem("token");
-    return !!token;
+    return this.authservice.loggedIn();
   }
 }

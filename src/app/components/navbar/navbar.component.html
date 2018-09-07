@@ -5,7 +5,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item ">
         <a class="nav-link" href="#">Matches </a>
       </li>
@@ -19,11 +19,11 @@
     </ul>
     <ul *ngIf="loggedIn()" class="navbar-nav">
       <li ngbDropdown class="nav-item dropdown">
-        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome
-          user
+        <a ngbDropdownToggle class="nav-link d dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome
+          {{authservice.decodedToken?.unique_name | titlecase}}
         </a>
         <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
-          <a class="dropdown-item "><i class="fa fa-user mr-2"></i>Edit Profile</a>
+          <li><a class="dropdown-item "><i class="fa fa-user mr-2"></i>Edit Profile</a></li>
           <a role="separator" class="divider"></a>
           <li class="nav-item">
             <a (click)="logout()" class="dropdown-item  "><i class="fa fa-sign-out mr-2"></i>Logout</a>
@@ -32,7 +32,7 @@
       </li>
     </ul>
 
-    <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline my-2 my-lg-0" novalidate>
+    <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline ml-auto my-2 my-lg-0" novalidate>
       <input class="form-control mr-sm-2" required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text" placeholder="Enter Username">
       <input class="form-control mr-sm-2" required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"
         placeholder="Enter Password">
