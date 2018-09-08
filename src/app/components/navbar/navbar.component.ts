@@ -1,6 +1,7 @@
 import { AlertifyService } from "./../../services/alertify.service";
 import { AuthService } from "./../../services/auth.service";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-navbar",
@@ -12,7 +13,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private authservice: AuthService,
-    private alertservice: AlertifyService
+    private alertservice: AlertifyService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -21,9 +23,10 @@ export class NavbarComponent implements OnInit {
     this.authservice.login(this.model).subscribe(
       data => {
         this.alertservice.success("logged in successsfully");
+        this.router.navigate(["/members"]);
       },
       error => {
-        this.alertservice.error(error);
+        this.alertservice.error("Failed to login");
       }
     );
   }
@@ -32,6 +35,7 @@ export class NavbarComponent implements OnInit {
     this.authservice.userToken = null;
     localStorage.removeItem("token");
     this.alertservice.message("logged out");
+    this.router.navigate(["/home"]);
   }
   loggedIn() {
     return this.authservice.loggedIn();

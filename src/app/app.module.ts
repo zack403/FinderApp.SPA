@@ -1,3 +1,6 @@
+import { AuthGuard } from "./guard/auth.guard";
+import { appRoutes } from "./route";
+import { MemberListComponent } from "./components/member-list/member-list.component";
 import { AuthService } from "./services/auth.service";
 import { NavbarComponent } from "./components/Navbar/Navbar.component";
 // tslint:disable-next-line:quotemark
@@ -23,6 +26,8 @@ import { HomeComponent } from "./components/home/home.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { AlertifyService } from "./services/alertify.service";
+import { ListsComponent } from "./components/lists/lists.component";
+import { MessagesComponent } from "./components/messages/messages.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +36,10 @@ import { AlertifyService } from "./services/alertify.service";
     NavbarComponent,
     HomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ListsComponent,
+    MessagesComponent,
+    MemberListComponent
   ],
   imports: [
     BrowserModule,
@@ -44,13 +52,9 @@ import { AlertifyService } from "./services/alertify.service";
     MatInputModule,
     MatTabsModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot([
-      { path: "", component: HomeComponent },
-      { path: "register", component: RegisterComponent },
-      { path: "login", component: NavbarComponent }
-    ])
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, AlertifyService, MatDialog],
+  providers: [AuthService, AlertifyService, AuthGuard, MatDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

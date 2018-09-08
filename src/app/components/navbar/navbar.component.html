@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-  <a class="navbar-brand" href="#">Finder App</a>
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active">Finder App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item ">
-        <a class="nav-link" href="#">Matches </a>
+      <li routerLinkActive="router-link-active" class="nav-item ">
+        <a class="nav-link" [routerLink]="['/members']">Matches </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">List</a>
+      <li routerLinkActive="router-link-active" class="nav-item">
+        <a class="nav-link" [routerLink]="['/lists']">List</a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link " href="#">Messages</a>
+      <li routerLinkActive="router-link-active" class="nav-item">
+        <a class="nav-link " [routerLink]="['/messages']">Messages</a>
       </li>
     </ul>
     <ul *ngIf="loggedIn()" class="navbar-nav">
       <li ngbDropdown class="nav-item dropdown">
-        <a ngbDropdownToggle class="nav-link d dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome
           {{authservice.decodedToken?.unique_name | titlecase}}
         </a>
         <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
