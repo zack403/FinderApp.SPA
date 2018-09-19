@@ -1,4 +1,4 @@
-<div *ngIf="!registerMode" style="text-align:center">
+ <div  *ngIf="!registerMode" style="text-align:center">
   <h1>
     Find Your Match
   </h1>
@@ -13,11 +13,8 @@
 
 <div *ngIf="registerMode" class=" container">
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4 col-md-offset-4">
+    
       <app-register  (cancelRegisterMode)="cancelRegisterMode($event)"></app-register>
-    </div>
-    <div class="col-md-4"></div>
+  
   </div>
-</div>
-<li *ngFor="let data of values"> {{data.id}} : {{data.name}}</li>
+</div> 

@@ -1,65 +1,51 @@
-<form #form="ngForm" (ngSubmit)="register()" novalidate>
-  <h2 class="text-center mt-2 ">Sign Up</h2>
-  <hr>
-  <div class="form-group">
-    <input type="text" #username="ngModel" required name="username" [(ngModel)]="model.username" class="form-control" placeholder="Username">
+<div class="card ">
+  <div class="card-header text-center bg-dark text-white">
+    <h1><i class="fa fa-sign-in mr-1"></i>Register</h1>
   </div>
-  <div class="form-group">
-    <input type="password" #password="ngModel" required name="password" [(ngModel)]="model.password" class="form-control" placeholder="Password">
-  </div>
-  <!-- <div class="form-group">
-    <label for="favouriteValues">What is your favourite values?</label>
-    <select name="value" #value="ngModel" [(ngModel)]="model.value" id="favouriteValues" class="form-control">
-      <option></option>
-      <option *ngFor="let value of valuesFromHome" value="{{value.id}}">{{value.name}}</option>
-    </select>
-  </div> -->
+  <div class="card-body">
+    <form #form="ngForm" (ngSubmit)="register()" novalidate>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-icon class="mr-1" matPrefix>email</mat-icon>
+          <input matInput required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text"
+            placeholder=" Username">
+        </mat-form-field>
 
-  <div class="form-group text-center">
-    <button class="btn btn-success mr-2" type="submit">Register</button>
-    <button class="btn btn-default" (click)="cancel()" type="submit">Cancel</button>
-  </div>
-
-</form>
-
-
-
-<!-- <p>register works</p>
-<mat-tab-group>
-  <mat-tab label="Register">
-    <div class="card  text-center ">
-      <div class="card-header ">
-        <h3>Sign Up Today</h3>
-        <p class="lead">Please fill out the form to get started</p>
-        <form class="card-body">
-          <div class="form-group">
-            <input type="text" class="form-control form-control-lg" placeholder="username">
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control form-control-lg" placeholder="email">
-          </div>
-
-          <div class="form-group">
-            <input type="password" class="form-control form-control-lg" placeholder="password">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control form-control-lg" placeholder="confirm password">
-          </div>
-          <div class="card-footer">
-            <input type="submit" class="btn btn-light btn-block">
-
-          </div>
-        </form>
-
+        <mat-form-field>
+          <mat-icon class="mr-1" matPrefix>lock</mat-icon>
+          <input matInput required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"
+            placeholder=" Password">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-icon class="mr-1" matPrefix>person</mat-icon>
+            <input matInput required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text"
+              placeholder=" Username">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-icon class="mr-1" matPrefix>lock</mat-icon>
+  
+            <input matInput required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"
+              placeholder=" Password">
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon class="mr-1" matPrefix>person</mat-icon>
+              <input matInput required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text"
+                placeholder=" Username">
+            </mat-form-field>
+    
+            <mat-form-field>
+              <mat-icon class="mr-1" matPrefix>lock</mat-icon>
+    
+              <input matInput required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"
+                placeholder=" Password">
+            </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button  class="btn btn-outline-warning mr-2" type="submit">Register</button>
+          <button mat-raised-button class="btn btn-outline-warning" (click)="cancel()" type="submit">Cancel</button>
+        </div>
       </div>
-    </div>
-  </mat-tab>
-  <mat-tab mat label="Login">
-    <form class="form-inline my-2 my-lg-0" novalidate>
-      <input class="form-control mr-sm-2" required name="email" type="text" placeholder="Enter Username">
-      <input class="form-control mr-sm-2" required name="password" type="password" placeholder="Enter Password">
-      <button class="btn btn-success my-2 my-sm-0" type="submit "> <span class="fa fa-sign-in mr-2"></span>Sign in
-      </button>
     </form>
-  </mat-tab>
-</mat-tab-group> -->
+  </div>
+</div>
+

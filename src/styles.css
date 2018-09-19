@@ -5,4 +5,10 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "~alertifyjs/build/css/alertify.min.css";
 @import "~alertifyjs/build/css/themes/bootstrap.min.css";
-@import "../node_modules/bootswatch/dist/materia/bootstrap.min.css";
+/* @import "../node_modules/bootswatch/dist/materia/bootstrap.min.css"; */
+
+
+ /* body {
+    background-image: url("/assets/date2.jpg");
+    background-size: cover;
+}  */

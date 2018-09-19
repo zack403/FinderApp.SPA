@@ -1,44 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active">Finder App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar  navbar-expand-lg navbar-dark  bg-dark mb-4 ">
+  <div class="container">
+    <a class="navbar-brand text-warning" [routerLink]="['/home']" routerLinkActive="router-link-active">Finder App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li routerLinkActive="router-link-active" class="nav-item ">
-        <a class="nav-link" [routerLink]="['/members']">Matches </a>
-      </li>
-      <li routerLinkActive="router-link-active" class="nav-item">
-        <a class="nav-link" [routerLink]="['/lists']">List</a>
-      </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+        <li routerLinkActive="router-link-active" class="nav-item ">
+          <a class="text-warning nav-link" [routerLink]="['/members']">Matches </a>
+        </li>
+        <li routerLinkActive="router-link-active" class="nav-item">
+          <a class="text-warning nav-link" [routerLink]="['/lists']">Lists</a>
+        </li>
 
-      <li routerLinkActive="router-link-active" class="nav-item">
-        <a class="nav-link " [routerLink]="['/messages']">Messages</a>
-      </li>
+        <li routerLinkActive="router-link-active" class=" nav-item">
+          <a class="text-warning nav-link " [routerLink]="['/messages']">Messages</a>
+        </li>
+      </ul>
+      <ul *ngIf="loggedIn()" class="navbar-nav">
+        <li ngbDropdown class="nav-item dropdown">
+          <a ngbDropdownToggle class="text-warning nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown">Welcome
+            {{authservice.decodedToken?.unique_name | titlecase}}
+          </a>
+          <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
+        <li><a class=" dropdown-item "><i class="fa fa-user mr-2"></i>Edit Profile</a></li>
+        <a role="separator" class="divider"></a>
+        <li class="nav-item">
+          <a (click)="logout()" class="dropdown-item  "><i class="fa fa-sign-out mr-2"></i>Logout</a>
+        </li>
+    </div>
+    </li>
     </ul>
-    <ul *ngIf="loggedIn()" class="navbar-nav">
-      <li ngbDropdown class="nav-item dropdown">
-        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome
-          {{authservice.decodedToken?.unique_name | titlecase}}
-        </a>
-        <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
-          <li><a class="dropdown-item "><i class="fa fa-user mr-2"></i>Edit Profile</a></li>
-          <a role="separator" class="divider"></a>
-          <li class="nav-item">
-            <a (click)="logout()" class="dropdown-item  "><i class="fa fa-sign-out mr-2"></i>Logout</a>
+    <ul *ngIf="!loggedIn()" class="navbar-nav ml-auto">
+        <li routerLinkActive="" class="nav-item">
+            <a class="nav-link text-warning" [routerLink]="['/login']">Member login <i class="fa fa-arrow-right"></i></a>
           </li>
-        </div>
-      </li>
     </ul>
-
-    <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline ml-auto my-2 my-lg-0" novalidate>
+    <!-- <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline ml-auto my-2 my-lg-0" novalidate>
       <input class="form-control mr-sm-2" required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text" placeholder="Enter Username">
       <input class="form-control mr-sm-2" required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"
         placeholder="Enter Password">
-      <button class="btn btn-success my-2 my-sm-0" [disabled]="!loginform.valid" type="submit "> <i class="fa fa-sign-in mr-2"></i>Sign
+      <button class="btn btn-success my-2 my-sm-0" [disabled]="!loginform.valid" type="submit"> <i class="fa fa-sign-in mr-2"></i>Sign
         in
       </button>
-    </form>
+    </form> -->
+  </div>
   </div>
 </nav>

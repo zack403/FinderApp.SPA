@@ -1,0 +1,27 @@
+<div class="container ">
+      <div *ngIf="!loggedIn()" class="card w-50  mr-3">
+        <div class="card-header bg-dark text-center ">
+          <h1 class="text-white"><i class="fa fa-sign-in mr-1"></i>Login</h1>
+        </div>
+        <div class="card-body bg-white">
+            <form  #loginform="ngForm" (ngSubmit)="login()" novalidate>
+          <div class="example-container">
+            <mat-form-field>
+              <mat-icon class="mr-1" matPrefix>person</mat-icon>
+              <input  matInput required name="email" #username="ngModel" [(ngModel)]="model.Username" type="text" placeholder="Enter Username">
+            </mat-form-field>
+          
+            <mat-form-field >
+                <mat-icon class="mr-1" matPrefix>lock</mat-icon>
+              <input matInput required name="password" #password="ngModel" [(ngModel)]="model.Password" type="password"  placeholder="Enter Password">
+            </mat-form-field>
+            <mat-slide-toggle class="mb-4" color="warn">Remember me!</mat-slide-toggle>
+            <div>
+                <button [disabled]="!loginform.valid" type="submit" mat-raised-button class="text-white font-weight-bold bg-warning">Login</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+        
+  </div>

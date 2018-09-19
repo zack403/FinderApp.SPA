@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <h1>{{user?.username | titlecase}}'s Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-image">
+          <img class="profile-image thumbnail" src="{{user?.photoUrl}}" alt="{{user?.knownAs}}">
+        </div>
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{user?.city}}, {{user?.country}}</p>
+          </div>
+          <div>
+            <strong>Age</strong>
+            <p>{{user?.age}}</p>
+          </div>
+          <div>
+            <strong>Last Active</strong>
+            <p>{{user?.lastActive}}</p>
+          </div>
+          <div>
+            <strong>Member Since</strong>
+            <p>{{user?.created }}</p>
+          </div>
+
+        </div>
+            <div class=" button-row mb-2">
+                <button class="mr-2" mat-raised-button color="primary">Like</button>
+                <button mat-raised-button color="accent">Message</button>
+            </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <mat-tab-group>
+        <mat-tab label="About {{user?.knownAs}}">
+          <h4>Description</h4>
+          <p>{{user?.introduction}}</p>
+          <h4>Looking For</h4>
+          <p>{{user?.lookingFor}}</p>
+        </mat-tab>
+        <mat-tab label="Interests">
+          <h4>Description</h4>
+          <p>{{user?.interests}}</p>
+        </mat-tab>
+        <mat-tab label="Photos">
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </mat-tab>
+        <mat-tab label="Messages">
+          <p>Messages will go here</p>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+
+  </div>
+
+</div>

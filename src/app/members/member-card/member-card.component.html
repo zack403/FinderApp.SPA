@@ -1,0 +1,27 @@
+<div class="card ">
+  <div class="text-center card-body">
+    <div class="card-image">
+      <img src="{{user.photoUrl}}" alt="{{user.knownAs}}">
+      <div class="button-row">
+        <button [routerLink]="['/members/', user.id]" routerLinkActive="router-link-active" color="warn" mat-icon-button>
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button color="accent">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon>message</mat-icon>
+          </button>
+      </div>
+      <!-- <ul class="row text-center member-icons animate">
+        <li><button class="btn btn-default" [routerLink]="['/members/', user.id]" routerLinkActive="router-link-active" ><i class="fa fa-user"></i></button></li>
+        <li><button class="btn btn-default"><i class="fa fa-heart"></i></button></li>
+        <li><button class="btn btn-default"><i class="fa fa-envelope"></i></button></li>
+      </ul> -->
+    </div>
+
+    <h5><i class="fa fa-user"></i> {{user.knownAs}}, {{user.age}} </h5>
+    <h5><small>{{user.knownAs}}</small></h5>
+  </div>
+
+</div>

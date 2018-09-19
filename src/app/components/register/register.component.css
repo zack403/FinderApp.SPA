@@ -1,0 +1,15 @@
+.button-row {
+    display: flex;
+    justify-content: center;
+}
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  .card{
+      width: 150%;
+  }

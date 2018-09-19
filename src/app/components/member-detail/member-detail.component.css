@@ -1,0 +1,11 @@
+
+.profile-image {
+  margin: 25px;
+  width: 85%;
+  height: 85%;
+}
+
+.button-row{
+    display: flex;
+    justify-content : center;
+}
