@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.spinner.show(); 
+    setTimeout(() => {
+      this.spinner.hide(); 
+    }, 1000);
   }
 
     

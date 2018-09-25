@@ -24,10 +24,12 @@
             {{authservice.decodedToken?.unique_name | titlecase}}
           </a>
           <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
-        <li><a class=" dropdown-item "><i class="fa fa-user mr-2"></i>Edit Profile</a></li>
-        <a role="separator" class="divider"></a>
         <li class="nav-item">
-          <a (click)="logout()" class="dropdown-item  "><i class="fa fa-sign-out mr-2"></i>Logout</a>
+          <a [routerLink]="['/member/edit']"  class="dropdown-item"><i class="fa fa-user mr-2"></i>Edit Profile</a>
+        </li>
+        <!-- <a role="separator" class="divider"></a> -->
+        <li class="nav-item">
+          <a (click)="logout()" class="dropdown-item"><i class="fa fa-sign-out mr-2"></i>Logout</a>
         </li>
     </div>
     </li>

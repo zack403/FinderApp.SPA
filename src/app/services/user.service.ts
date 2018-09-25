@@ -39,6 +39,11 @@ private jwt(){
   }
 }
 
+
+  updateUser(id : number, user: User){
+    return this.http.put(this.baseUrl + "user/" + id, user, this.jwt()).pipe(catchError(this.handleError)); 
+  }
+
 private handleError(error: any) {
   const applicationerror = error.headers.get("Application-Error");
   if (applicationerror) {

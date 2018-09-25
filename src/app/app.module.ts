@@ -1,3 +1,8 @@
+import { PreventUnsavedChanges } from './guard/prevent-unsafe-changes';
+import { MemberEditResolver } from './resolvers/member-edit.resolver';
+import { MemberListResolver } from './resolvers/member-list.resolver';
+import { MemberDetailResolver } from './resolvers/member-detail.resolver';
+import { MemberEditComponent } from './components/member-edit/member-edit.component';
 import { MemberDetailComponent } from "./components/member-detail/member-detail.component";
 import { MemberCardComponent } from "./members/member-card/member-card.component";
 import { AuthGuard } from "./guard/auth.guard";
@@ -11,7 +16,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxGalleryModule } from 'ngx-gallery';
-import {NgxSpinnerModule, NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 
 import { NgModule } from "@angular/core";
@@ -54,7 +59,8 @@ import { UserService } from "./services/user.service";
     MessagesComponent,
     MemberListComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +82,13 @@ import { UserService } from "./services/user.service";
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, AlertifyService, UserService, NgxSpinnerService, AuthGuard, MatDialog],
+  providers: [AuthService, AlertifyService, UserService, 
+    AuthGuard, 
+    MemberDetailResolver, 
+    MemberListResolver,
+    MemberEditResolver,
+    PreventUnsavedChanges 
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

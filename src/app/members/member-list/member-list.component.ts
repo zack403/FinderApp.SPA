@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from "./../../services/user.service";
 import { Component, OnInit } from "@angular/core";
@@ -12,22 +13,29 @@ import { AlertifyService } from "../../services/alertify.service";
 export class MemberListComponent implements OnInit {
 
   users : User[];
-  constructor(private userService: UserService, private alertifyService : AlertifyService, private spinner : NgxSpinnerService) {}
+  constructor(private userService: UserService, 
+    private route : ActivatedRoute, 
+    private alertifyService : AlertifyService, 
+    private spinner : NgxSpinnerService) {}
 
   ngOnInit() {
-    this.spinner.show(); 
-    setTimeout(() => {
-      this.loadUsers();
-      this.spinner.hide(); 
-    }, 2000);
+    this.route.data.subscribe(data => {
+      this.users = data['users'];
+    })
+     //this.loadUsers();
+    // this.spinner.show(); 
+    // setTimeout(() => {
+    //   this.loadUsers();
+    //   this.spinner.hide(); 
+    // }, 1000);
   }
 
-  loadUsers() {
-    this.userService.getUsers().subscribe(resp => {
-      this.users = resp;
-    },
-    error => {
-      this.alertifyService.error(error);
-    });
-  }
+  // loadUsers() {
+  //   this.userService.getUsers().subscribe(resp => {
+  //     this.users = resp;
+  //   },
+  //   error => {
+  //     this.alertifyService.error(error);
+  //   });
+  // }
 }
