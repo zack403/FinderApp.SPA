@@ -7,6 +7,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+        <li>
+        </li>
         <li routerLinkActive="router-link-active" class="nav-item ">
           <a class="text-warning nav-link" [routerLink]="['/members']">Matches </a>
         </li>
@@ -19,6 +21,9 @@
         </li>
       </ul>
       <ul *ngIf="loggedIn()" class="navbar-nav">
+        <li>
+            <img src="{{photoUrl}}" alt="">
+        </li>
         <li ngbDropdown class="nav-item dropdown">
           <a ngbDropdownToggle class="text-warning nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown">Welcome
             {{authservice.decodedToken?.unique_name | titlecase}}

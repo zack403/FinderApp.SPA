@@ -1,3 +1,4 @@
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './guard/prevent-unsafe-changes';
 import { MemberEditResolver } from './resolvers/member-edit.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
@@ -46,6 +47,7 @@ import { AlertifyService } from "./services/alertify.service";
 import { ListsComponent } from "./components/lists/lists.component";
 import { MessagesComponent } from "./components/messages/messages.component";
 import { UserService } from "./services/user.service";
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { UserService } from "./services/user.service";
     MemberListComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ import { UserService } from "./services/user.service";
     NgxGalleryModule,
     NgxSpinnerModule, 
     NgbModule.forRoot(),
+    FileUploadModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [AuthService, AlertifyService, UserService, 

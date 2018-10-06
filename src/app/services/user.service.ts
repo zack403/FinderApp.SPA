@@ -39,10 +39,18 @@ private jwt(){
   }
 }
 
+  deletePhoto(userId : number, id: number){
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).pipe(catchError(this.handleError));
+  }
+
 
   updateUser(id : number, user: User){
     return this.http.put(this.baseUrl + "user/" + id, user, this.jwt()).pipe(catchError(this.handleError)); 
   }
+
+  setMainPhoto(userId : number, id : number){
+   return this.http.post(this.baseUrl + "users/" + userId + "/photos/" + id + "/setMain", this.jwt(), {}).pipe(catchError(this.handleError));    
+}
 
 private handleError(error: any) {
   const applicationerror = error.headers.get("Application-Error");

@@ -1,0 +1,13 @@
+img.thumbnail {
+    margin-bottom: 7px;
+    height: 100px;
+    width: 100px;
+  }
+
+  .button {
+      display: flex;
+  }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+ input[type=file] {
+     color : transparent;
+ }

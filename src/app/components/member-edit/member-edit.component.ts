@@ -1,3 +1,4 @@
+import { Photo } from './../../models/Photo';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './../../services/auth.service';
 import { UserService } from './../../services/user.service';
@@ -16,6 +17,7 @@ import { NgForm } from '@angular/forms';
 export class MemberEditComponent implements OnInit {
   user : User;
   @ViewChild('editForm')  editForm: NgForm;
+  photoUrl : string;
 
   constructor(private spinner : NgxSpinnerService, 
     private alertifyService: AlertifyService, 
@@ -29,10 +31,14 @@ export class MemberEditComponent implements OnInit {
       this.route.data.subscribe(data => {
         this.user = data['user'];
       });
+
+      this.authService.currentPhotoUrl.subscribe(photourl => {
+        this.photoUrl = photourl;
+      })
+
       this.spinner.hide(); 
     }, 1000);
   }
-
 
   updateUser(){
     this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(() =>{
@@ -42,4 +48,10 @@ export class MemberEditComponent implements OnInit {
       this.alertifyService.error(error);
     }) 
   }
+
+  //third part of an output property
+  updateMainPhoto(photoUrl){
+    this.user.photoUrl = photoUrl;
+  }
+
 }
