@@ -22,7 +22,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "../../node_modules/@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "../../node_modules/@angular/forms";
 
 import {MatCardModule} from '@angular/material/card';
 
@@ -35,7 +35,10 @@ import {
   MatGridListModule,
   MatCheckboxModule,
   MatIconModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from "@angular/material";
 
 import { AppComponent } from "./app.component";
@@ -70,10 +73,14 @@ import { FileUploadModule } from 'ng2-file-upload';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatTabsModule,
     MatGridListModule,
     MatIconModule,
@@ -91,7 +98,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberDetailResolver, 
     MemberListResolver,
     MemberEditResolver,
-    PreventUnsavedChanges 
+    PreventUnsavedChanges,
+    MatDatepickerModule 
 ],
   bootstrap: [AppComponent]
 })

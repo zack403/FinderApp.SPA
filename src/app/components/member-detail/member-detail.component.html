@@ -6,7 +6,7 @@
     <div class="col-sm-4">
       <div class="card">
         <div class="card-image">
-          <img class="profile-image thumbnail" src="{{user.photoUrl}}" alt="{{user.knownAs}}">
+          <img class="profile-image thumbnail" src="{{user.photoUrl ? user.photoUrl : 'assets/user.png'}}" alt="{{user.knownAs}}">
         </div>
         <div class="card-body">
           <div>

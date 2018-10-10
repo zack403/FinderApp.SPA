@@ -37,20 +37,20 @@ export class AuthService {
             this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
             this.currentUser = user.user;
             this.userToken = user.tokenString;
-            this.changeMemberPhoto(this.currentUser.photoUrl);
+            if(this.currentUser.photoUrl != null){
+              this.changeMemberPhoto(this.currentUser.photoUrl);
+            }else{
+              this.changeMemberPhoto("assets/user.png");
+            }
           }
         }),
         catchError(this.handleError)
       );
   }
 
-  register(model: any) {
+  register(user: User) {
     let httpheaders = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http
-      .post(this.baseUrl + "register", model, {
-        headers: httpheaders
-      })
-      .pipe(catchError(this.handleError));
+    return this.http.post(this.baseUrl + "register", user, {headers: httpheaders}).pipe(catchError(this.handleError));
   }
 
   loggedIn() {

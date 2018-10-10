@@ -13,3 +13,6 @@
   .card{
       width: 150%;
   }
+.radio {
+    display: flex;
+}

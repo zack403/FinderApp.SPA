@@ -1,7 +1,7 @@
 <div class="card ">
   <div class="text-center card-body">
     <div class="card-image">
-      <img src="{{user.photoUrl}}" alt="{{user.knownAs}}">
+      <img src="{{user.photoUrl ? user.photoUrl : 'assets/user.png'}}" alt="{{user.knownAs}}">
       <div class="button-row">
         <button [routerLink]="['/members/', user.id]" routerLinkActive="router-link-active" color="warn" mat-icon-button>
           <mat-icon>person_add</mat-icon>
