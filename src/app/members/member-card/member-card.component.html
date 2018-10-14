@@ -6,7 +6,7 @@
         <button [routerLink]="['/members/', user.id]" routerLinkActive="router-link-active" color="warn" mat-icon-button>
           <mat-icon>person_add</mat-icon>
         </button>
-        <button mat-icon-button color="accent">
+        <button (click)="sendLike(user.id)" mat-icon-button color="accent">
             <mat-icon>favorite</mat-icon>
           </button>
           <button mat-icon-button color="primary">

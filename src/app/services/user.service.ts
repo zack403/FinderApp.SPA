@@ -1,10 +1,12 @@
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throw } from 'rxjs';
 import { environment } from './../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { map } from 'rxjs/operators';
+import { PaginatedResult } from '../models/pagination';
 
 
 @Injectable({
@@ -17,8 +19,36 @@ constructor(private http : HttpClient) { }
 
 
 getUsers() : Observable<User[]>{ 
+  // const paginatedResult : PaginatedResult<User[]> = new PaginatedResult<User[]>();
+  // let queryString = "?";
+
+  // if(page != null && itemsPerpage != null){
+  //   queryString += "pageNumber=" + page + "&pageSize=" + itemsPerpage;
+  // }
+
+
+  // if(likesParam === 'likers') {
+  //   queryString += 'Likers=true&';
+  // }
+
+  // if(likesParam === 'likees') {
+  //   queryString += 'Likees=true&';
+  // }
+
+  // if (userParams != null){
+  //   queryString +=
+  //   'minAge=' + userParams.minAge + &
+  //   'maxAge=' + userParams.maxAge + &
+  //   'gender=' + userParams.gender + &
+        //'orderBy=' + URLSearchParams.orderBy;
+  // }
   return this.http.get(this.baseUrl + "user", this.jwt())
-  .pipe(map(response => <User[]> response),
+  .pipe(map(response  => <User[]>response
+    // if(response.headers.get("Pagination") != null) {
+    //   paginatedResult.pagination = JSON.parse(response.headers.get("Pagination"));
+    // }
+    // return paginatedResult;
+  ),
   catchError(this.handleError)
   );
 }
@@ -40,7 +70,7 @@ private jwt(){
 }
 
   deletePhoto(userId : number, id: number){
-    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).pipe(catchError(this.handleError));
+    return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id, this.jwt()).pipe(catchError(this.handleError));
   }
 
 
@@ -49,13 +79,22 @@ private jwt(){
   }
 
   setMainPhoto(userId : number, id : number){
-   return this.http.post(this.baseUrl + "users/" + userId + "/photos/" + id + "/setMain", this.jwt(), {}).pipe(catchError(this.handleError));    
+   return this.http.post(this.baseUrl + "user/" + userId + "/photos/" + id + "/setMain", {}, this.jwt()).pipe(catchError(this.handleError));    
 }
 
+  sendLike(id: number, recipientId : number){
+
+    return this.http.post(this.baseUrl + "user/" + id + "/like/" + recipientId, {}, this.jwt()).pipe(catchError(this.handleError));
+
+  }
+
 private handleError(error: any) {
+  if(error.status === 400){
+    return Observable.throw(error._body);
+  }
   const applicationerror = error.headers.get("Application-Error");
   if (applicationerror) {
-    return throwError(applicationerror);
+    return Observable.throw(applicationerror);
   }
   const serverError = error;
   let modelStatErrors = "";
@@ -66,7 +105,7 @@ private handleError(error: any) {
       }
     }
   }
-  return throwError(modelStatErrors || "serverError");
+  return Observable.throw(modelStatErrors || "serverError");
 }
 
 }

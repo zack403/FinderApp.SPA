@@ -25,7 +25,7 @@ export const appRoutes: Routes = [
       { path: "members", component: MemberListComponent, resolve: {users : MemberListResolver} },
       { path: "members/:id", component: MemberDetailComponent, resolve: {user: MemberDetailResolver} },
       { path: "member/edit", component: MemberEditComponent, resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges] },
-      { path: "lists", component: ListsComponent  },
+      { path: "lists", component: ListsComponent, resolve: {users: ListResolver}  },
       { path: "messages", component: MessagesComponent }
     ]
   },

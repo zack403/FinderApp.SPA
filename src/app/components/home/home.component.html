@@ -1,4 +1,4 @@
- <div  *ngIf="!registerMode" style="text-align:center">
+ <div  *ngIf="!registerMode && !loggedIn()" style="text-align:center">
   <h1>
     Find Your Match
   </h1>
@@ -9,12 +9,15 @@
   </div>
 </div>
 
+<div class="image" *ngIf="loggedIn()">
+
+  <p>Home contents will go here.......</p>
+
+</div>
 
 
-<div *ngIf="registerMode" class=" container">
+<div *ngIf="registerMode && !loggedIn()" class=" container">
   <div class="row">
-    
       <app-register  (cancelRegisterMode)="cancelRegisterMode($event)"></app-register>
-  
   </div>
 </div> 

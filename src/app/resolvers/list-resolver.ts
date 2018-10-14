@@ -7,9 +7,10 @@ import { UserService } from '../services/user.service';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
-export class MemberListResolver implements Resolve<User[]> {
+export class ListResolver implements Resolve<User[]> {
     // pageSize = 5;
     // pageNumber = 1;
+    // likesParam = 'Likers';
     
 
     constructor(private userService: UserService, 

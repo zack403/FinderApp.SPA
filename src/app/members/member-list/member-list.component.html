@@ -1,7 +1,51 @@
-<div class="container">
+
+  <div class="container text-center">
+  <h2>Your matches -  found</h2>
+  </div>
+
+ <div class="container">
+   <div class="row">
+    <form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
+<div class="form-group">
+  <label for="minAge" class="font-weight-bold">Age From</label>
+  <input type="number" class="form-control" style="width: 70px;" id="minAge" [(ngModel)]="userParams.minAge" name="minAge">
+</div>
+<div class="form-group">
+    <label for="maxAge" class="font-weight-bold">Age To</label>
+    <input type="number" class="form-control" style="width: 70px;" id="maxAge" [(ngModel)]="userParams.maxAge" name="maxAge">
+  </div>
+  <div class="form-group">
+      <label for="gender" class="font-weight-bold">Show: </label>
+      <select name="gender" style="width: 130px;" class="form-control" [(ngModel)]="userParams.gender" id="gender">
+        <option *ngFor="let gender of genderList" [value]="gender.value">{{gender.display}}</option>
+      </select>
+    </div>
+
+    <button type="submit" mat-raised-button color="warn" style="margin-left: 10px">Apply Filters</button>
+    <button type="button" mat-raised-button color="accent" (click)="resetFilters()" style="margin-left: 10px">Reset Filter</button>
+  
+
+    </form>
+    <div class="pull-right">
+        <label style="margin-right: 10px">Order By: </label>
+        <div class="btn-group">
+          <button type="button" name="orderBy" (click)="loadUser()" [(ngModel)]="userParams.orderBy" color="primary" mat-raised-button btnRadio="lastActive">LastActive</button>
+          <button type="button" name="orderBy" (click)="loadUser()" [(ngModel)]="userParams.orderBy" color="warn" mat-raised-button btnRadio="created">Newest Members</button>
+        </div>
+  
+      </div>
+  </div> 
+  <br>
   <div class="row">
     <div  *ngFor="let user of users" class="col-lg-2 col-md-3 mb-3 col-sm-6">
       <app-member-card [user]= "user"></app-member-card>
     </div>
   </div>
-</div>
+</div> 
+
+<div class="container text-center">
+  <pagination [boundaryLinks]="true"  class="pagination-sm" 
+  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+</pagination>
+</div>       
+ 

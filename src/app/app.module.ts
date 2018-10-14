@@ -16,6 +16,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/Buttons';
 import { NgxGalleryModule } from 'ngx-gallery';
 import {NgxSpinnerModule} from "ngx-spinner";
 
@@ -42,6 +44,7 @@ import {
 } from "@angular/material";
 
 import { AppComponent } from "./app.component";
+import {TimeAgoPipe} from 'time-ago-pipe';
 import { ValueComponent } from "./components/value/value.component";
 import { HomeComponent } from "./components/home/home.component";
 import { RegisterComponent } from "./components/register/register.component";
@@ -66,6 +69,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    TimeAgoPipe,
     PhotoEditorComponent
   ],
   imports: [
@@ -82,6 +86,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTabsModule,
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     MatGridListModule,
     MatIconModule,
     MatCardModule,
@@ -99,7 +105,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberListResolver,
     MemberEditResolver,
     PreventUnsavedChanges,
-    MatDatepickerModule 
+    MatDatepickerModule,
+    ListResolver 
 ],
   bootstrap: [AppComponent]
 })

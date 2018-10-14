@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
@@ -13,7 +14,9 @@ export class HomeComponent implements OnInit {
   values;
   private url = "http://localhost:5000/api/value";
   registerMode = false;
-  constructor(private dialog: MatDialog, private spinner : NgxSpinnerService,  private http: HttpClient) {}
+  constructor(private dialog: MatDialog, 
+    private spinner : NgxSpinnerService,  
+    private http: HttpClient, private authService : AuthService) {}
 
 
   ngOnInit() {
@@ -29,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   opendialog() {
     this.dialog.open(RegisterComponent);
+  }
+
+  loggedIn(){
+    return this.authService.loggedIn();
   }
 
   cancelRegisterMode(registermode: boolean) {

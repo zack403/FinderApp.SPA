@@ -1,6 +1,9 @@
+import { AuthService } from './../../services/auth.service';
+import { AlertifyService } from './../../services/alertify.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/User';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-member-card',
@@ -9,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class MemberCardComponent implements OnInit {
 @Input() user : User;
-constructor(private spinner : NgxSpinnerService) { }
+constructor(private spinner : NgxSpinnerService, private authService : AuthService, private alertifyService : AlertifyService, private userService  : UserService) { }
 
 ngOnInit() {
   this.spinner.show(); 
@@ -17,5 +20,13 @@ ngOnInit() {
     this.spinner.hide(); 
   }, 1000);
 }
+
+  sendLike(id : number) {
+    this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(response => {
+      this.alertifyService.success(`You have liked ${this.user.knownAs}`);
+    }, error => {
+      this.alertifyService.error(error);
+    });
+  }
 
 }

@@ -2,3 +2,9 @@
     display: flex;
     justify-content: center;
 }
+
+.image{
+     height:40em; background-size:cover; width:auto;
+     background-image:url('/assets/lion.jpg');
+     background-position:50% 50%;
+   }
