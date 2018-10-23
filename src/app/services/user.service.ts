@@ -1,12 +1,13 @@
-import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Observable, throw } from 'rxjs';
+import { throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { map } from 'rxjs/operators';
 import { PaginatedResult } from '../models/pagination';
+import { Message } from '../models/message';
 
 
 @Injectable({
@@ -69,6 +70,45 @@ private jwt(){
   }
 }
 
+  getMessages (id : number, page? : number, itemsPerpage? : number, messageContainer? : string) : Observable<any> {
+    const paginatedResult : PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+    let queryString = '?MessageContainer='+ messageContainer;
+
+    if(page != null && itemsPerpage != null){
+      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerpage;
+    }
+
+    return this.http.get(this.baseUrl + 'user/' + id + '/messages' + queryString, this.jwt()).pipe(map((response : any) => {
+      paginatedResult.result = response;
+
+      if(response.headers.get('Pagination') != null){
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      }
+      return paginatedResult;
+    }),catchError(this.handleError)
+    );
+  }
+
+  getMessageThread(id: number, recipientId : number ){
+    return this.http.get(this.baseUrl + "user/" + id + "/messages/thread" + recipientId, this.jwt()).pipe(map((response : Response) => {
+      return response;
+    }, catchError(this.handleError)));
+  };
+
+  sendMessage(id : number, message : Message){
+    return this.http.post(this.baseUrl + "user/" + id + "/messages", message, this.jwt()).pipe(map((response : Response) => {
+      return response;
+    }, catchError(this.handleError)));
+  }
+
+
+  deleteMessage(id : number, userId : number){
+    return this.http.post(this.baseUrl + "user/" + userId + "/messages/" + id, {},  this.jwt()).pipe(catchError(this.handleError));
+  };
+
+  markAsRead(userId : number, messageId : number) {
+    return this.http.post(this.baseUrl + "user/" + userId + '/messages' + messageId + '/read', {}, this.jwt()).subscribe();
+  }
   deletePhoto(userId : number, id: number){
     return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id, this.jwt()).pipe(catchError(this.handleError));
   }

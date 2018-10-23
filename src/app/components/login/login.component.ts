@@ -11,7 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoginComponent implements OnInit {
   model : any = {};
-
+  isBusy = false;
   constructor(
     private spinner : NgxSpinnerService,
     private authservice: AuthService,
@@ -29,12 +29,15 @@ export class LoginComponent implements OnInit {
     
 
   login() {
-    this.authservice.login(this.model).subscribe(
-      data => {
+    this.isBusy = true;
+    this.authservice.login(this.model).subscribe(data => {
+      this.isBusy = false;
         this.alertservice.success("logged in successsfully");
+        
         this.router.navigate(["/members"]);
       },
       error => {
+        this.isBusy = false;
         this.alertservice.error(error);
       }
     );

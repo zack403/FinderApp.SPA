@@ -9,7 +9,7 @@
         <button (click)="sendLike(user.id)" mat-icon-button color="accent">
             <mat-icon>favorite</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button [routerLink]="['/members', user.id]" [queryParams]="{tab : '3'}" routerLinkActive="router-link-active"  mat-icon-button color="primary">
             <mat-icon>message</mat-icon>
           </button>
       </div>

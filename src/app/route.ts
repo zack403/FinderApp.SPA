@@ -1,3 +1,4 @@
+import { MessagesResolver } from './resolvers/message.resolver';
 import { MemberEditComponent } from './components/member-edit/member-edit.component';
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -12,6 +13,7 @@ import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
 import { MemberEditResolver } from './resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './guard/prevent-unsafe-changes';
+import { ListResolver } from './resolvers/list.resolver';
 
 export const appRoutes: Routes = [
   { path: "home", component: HomeComponent },
@@ -26,7 +28,7 @@ export const appRoutes: Routes = [
       { path: "members/:id", component: MemberDetailComponent, resolve: {user: MemberDetailResolver} },
       { path: "member/edit", component: MemberEditComponent, resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges] },
       { path: "lists", component: ListsComponent, resolve: {users: ListResolver}  },
-      { path: "messages", component: MessagesComponent }
+      { path: "messages", component: MessagesComponent, resolve: {messages: MessagesResolver} }
     ]
   },
   { path: "**", redirectTo: "home", pathMatch: "full" }

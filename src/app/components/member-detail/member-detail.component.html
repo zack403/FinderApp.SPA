@@ -29,12 +29,12 @@
         </div>
             <div class=" button-row mb-2">
                 <button class="mr-2" mat-raised-button color="primary">Like</button>
-                <button mat-raised-button color="accent">Message</button>
+                <button (click)="selectedTab(3)" mat-raised-button color="accent">Message</button>
             </div>
       </div>
     </div>
     <div class="col-sm-8">
-      <mat-tab-group>
+      <mat-tab-group #memberTabs>
         <mat-tab label="About {{user.knownAs}}">
           <h4>Description</h4>
           <p>{{user.introduction}}</p>
@@ -50,12 +50,10 @@
           <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
         </mat-tab>
         <mat-tab label="Messages">
-          <p>Messages will go here</p>
+          <app-member-messages [userId]="user.id" ></app-member-messages>
         </mat-tab>
       </mat-tab-group>
     </div>
-
-
   </div>
 
 </div>

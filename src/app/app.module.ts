@@ -1,3 +1,4 @@
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './guard/prevent-unsafe-changes';
 import { MemberEditResolver } from './resolvers/member-edit.resolver';
@@ -54,6 +55,10 @@ import { ListsComponent } from "./components/lists/lists.component";
 import { MessagesComponent } from "./components/messages/messages.component";
 import { UserService } from "./services/user.service";
 import { FileUploadModule } from 'ng2-file-upload';
+import { ListResolver } from './resolvers/list.resolver';
+import { MessagesResolver } from './resolvers/message.resolver';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +75,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberDetailComponent,
     MemberEditComponent,
     TimeAgoPipe,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +96,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ButtonsModule.forRoot(),
     MatGridListModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     MatSlideToggleModule,
     MatCheckboxModule,
@@ -106,7 +113,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MemberEditResolver,
     PreventUnsavedChanges,
     MatDatepickerModule,
-    ListResolver 
+    ListResolver,
+    MessagesResolver 
 ],
   bootstrap: [AppComponent]
 })
