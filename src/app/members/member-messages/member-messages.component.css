@@ -13,9 +13,10 @@
     border-bottom: 1px dotted #B3A9a9
 }
 
-.img-cirlce {
+img {
     height: 50px;
     width: 50px;
+    border-radius: 50%;
 }
 
 .panel-body {

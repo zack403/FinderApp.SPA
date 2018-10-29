@@ -2,12 +2,15 @@
   <div class="col-sm-2" *ngFor="let photo of photos">
     <img class="thumbnail" src="{{photo.url}}" alt="">
     <div class="button text-center">
-      <button type="button" class="btn btn-sm mr-2" 
+      <button color="accent"  mat-icon-button type="button" class="btn btn-success btn-sm mr-2" 
       (click)="setMainPhoto(photo)"
       [ngClass]="photo.isMain ? 'btn-success active' : 'btn-default'"
-      [disabled]="photo.isMain">Main</button>
-      <button (click)="deletePhoto(photo.id)" [disabled]="photo.isMain" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>
-    </div>
+      [disabled]="photo.isMain"> 
+      <mat-icon>edit</mat-icon>
+    </button>
+      <button (click)="deletePhoto(photo.id)" class="btn btn-danger" [disabled]="photo.isMain" type="button" mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>    </div>
   </div>
 </div>
 <div class="row">
@@ -44,7 +47,7 @@
       <tbody>
         <tr *ngFor="let item of uploader.queue">
           <td><strong>{{ item?.file?.name }}</strong></td>
-          <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+          <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
         </tr>
       </tbody>
     </table>
@@ -57,7 +60,7 @@
         </div>
       </div>
         <button type="button" class="btn btn-success btn-s mr-1" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-          <span class="fa fa-upload"></span> Upload 
+          <span class="fa fa-upload"></span> Upload <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i>
         </button>
         <button type="button" class="btn btn-warning btn-s mr-1" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
           <span class="fa fa-remove"></span> Cancel

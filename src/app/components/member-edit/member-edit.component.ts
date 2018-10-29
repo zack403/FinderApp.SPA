@@ -18,6 +18,7 @@ export class MemberEditComponent implements OnInit {
   user : User;
   @ViewChild('editForm')  editForm: NgForm;
   photoUrl : string;
+  isBusy = false;
 
   constructor(private spinner : NgxSpinnerService, 
     private alertifyService: AlertifyService, 
@@ -41,11 +42,14 @@ export class MemberEditComponent implements OnInit {
   }
 
   updateUser(){
+    this.isBusy = true;
     this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(() =>{
-      this.alertifyService.success("profile successfully updated");
+      this.alertifyService.success("Profile successfully updated");
+      this.isBusy = false;
       this.editForm.reset(this.user);
     }, error => {
       this.alertifyService.error(error);
+      this.isBusy = false;
     }) 
   }
 

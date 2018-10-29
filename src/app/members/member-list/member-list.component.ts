@@ -18,6 +18,7 @@ export class MemberListComponent implements OnInit {
   user : User =  JSON.parse(localStorage.getItem("user"));
   genderList = [{value :"male", display: "Males"}, {value : "female", display : "Females"}];
   userParams : any = {};
+  isBusy = false;
 
 
   constructor(private userService: UserService, 
@@ -28,7 +29,7 @@ export class MemberListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.users = data['users'];
-      // this.pagination = data['users'].pagination;
+       this.pagination = data['users'].pagination;
     })
 
 
@@ -36,34 +37,40 @@ export class MemberListComponent implements OnInit {
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
     this.userParams.orderBy = "lastActive";
-     //this.loadUsers();
-    // this.spinner.show(); 
-    // setTimeout(() => {
-    //   this.loadUsers();
-    //   this.spinner.hide(); 
-    // }, 1000);
+     this.loadUsers();
+    this.spinner.show(); 
+    setTimeout(() => {
+      this.loadUsers();
+      this.spinner.hide(); 
+    }, 1000);
   }
 
   pageChanged(event: any): void {
      this.pagination.currentPage = event.page;
-    //  this.loadUsers();
+      this.loadUsers();
   }
 
 
   resetFilters () {
+    this.isBusy = true;
     this.userParams.gender = this.user.gender === "female" ? "male" : "female";
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
-    //this.loadUsers():
+    this.loadUsers();
+    this.isBusy = false;
   }
-  // loadUsers() {
-  //   this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
-  //   .subscribe((resp : PaginatedResult<User[]>) => {
-  //     this.users = resp.result;
-  //     this.pagination = resp.pagination;
-  //   },
-  //   error => {
-  //     this.alertifyService.error(error);
-  //   });
-  // }
+
+  loadUsers() {
+    this.isBusy = true;
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
+    .subscribe((resp : PaginatedResult<User[]>) => {
+      this.users = resp.result;
+      this.pagination = resp.pagination;
+      this.isBusy = false;
+    },
+    error => {
+      this.alertifyService.error(error);
+      this.isBusy  = false;
+    });
+  }
 }

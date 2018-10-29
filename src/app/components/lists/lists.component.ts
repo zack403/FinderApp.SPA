@@ -27,30 +27,27 @@ export class ListsComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.users = data['users'].ressult;
       this.pagination = data['users'].pagination;
-    })
-    this.spinner.show(); 
-    setTimeout(() => {
-      this.spinner.hide(); 
-    }, 1000);
-
+    });
     this.likesParam = 'Likers';
+   
   }
 
-  //pageChanged(event: any): void {
-   /// this.pagination.currentPage = event.page;
-   //  this.loadUsers();
- //}
+ 
+  loadUsers() {
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likesParam)
+    .subscribe((resp : PaginatedResult<User[]>) => {
+      this.users = resp.result;
+      this.pagination = resp.pagination;
+    },
+    error => {
+      this.alertifyService.error(error);
+    });
+  }
 
-  // loadUsers() {
-  //   this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likesParam)
-  //   .subscribe((resp : PaginatedResult<User[]>) => {
-  //     this.users = resp.result;
-  //     this.pagination = resp.pagination;
-  //   },
-  //   error => {
-  //     this.alertifyService.error(error);
-  //   });
-  // }
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadUsers();
+ }
 
 
 }

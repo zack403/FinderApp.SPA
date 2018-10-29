@@ -1,8 +1,7 @@
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient,  HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { map } from 'rxjs/operators';
@@ -19,133 +18,114 @@ export class UserService {
 constructor(private http : HttpClient) { }
 
 
-getUsers() : Observable<User[]>{ 
-  // const paginatedResult : PaginatedResult<User[]> = new PaginatedResult<User[]>();
-  // let queryString = "?";
+getUsers(page?, itemsPerPage?, userParams?: any, likesParam?: string) { 
+  const paginatedResult : PaginatedResult<User[]> = new PaginatedResult<User[]>();
+ let params = new HttpParams();
 
-  // if(page != null && itemsPerpage != null){
-  //   queryString += "pageNumber=" + page + "&pageSize=" + itemsPerpage;
-  // }
-
-
-  // if(likesParam === 'likers') {
-  //   queryString += 'Likers=true&';
-  // }
-
-  // if(likesParam === 'likees') {
-  //   queryString += 'Likees=true&';
-  // }
-
-  // if (userParams != null){
-  //   queryString +=
-  //   'minAge=' + userParams.minAge + &
-  //   'maxAge=' + userParams.maxAge + &
-  //   'gender=' + userParams.gender + &
-        //'orderBy=' + URLSearchParams.orderBy;
-  // }
-  return this.http.get(this.baseUrl + "user", this.jwt())
-  .pipe(map(response  => <User[]>response
-    // if(response.headers.get("Pagination") != null) {
-    //   paginatedResult.pagination = JSON.parse(response.headers.get("Pagination"));
-    // }
-    // return paginatedResult;
-  ),
-  catchError(this.handleError)
-  );
-}
-
-getUser(id) : Observable<User> {
-  return this.http.get(this.baseUrl + "user/" + id, this.jwt())
-  .pipe(map(response => <User>response),
-  catchError(this.handleError)
-  );
-}
-
-private jwt(){  
-  let token = localStorage.getItem("token");
-  if(token){
-    let httpheaders = new HttpHeaders({ "Authorization": "Bearer " + token });
-    httpheaders.append("Content-type" , "application/json");
-    return {headers : httpheaders};
+  if(page != null && itemsPerPage != null){
+    params = params.append("pageNumber", page)
+    params = params.append("pageSize", itemsPerPage)
   }
+
+
+  if(likesParam === 'Likers') {
+    params = params.append("Likers", 'true')
+  }
+
+  if(likesParam === 'Likees') {
+    params = params.append("Likees", 'true')
+  }
+
+  if (userParams != null){
+    params = params.append("minAge", userParams.minAge);
+    params = params.append("maxAge", userParams.maxAge);
+    params = params.append("gender", userParams.gender);
+    params = params.append("orderBy", userParams.orderBy);
+
+  }
+  return this.http.get<User[]>(this.baseUrl + "user", { observe: 'response', params})
+  .pipe(map(response  => {
+    paginatedResult.result = response.body;
+    if(response.headers.get("Pagination") != null) {
+      paginatedResult.pagination = JSON.parse(response.headers.get("Pagination"));
+    }
+    return paginatedResult;
+  }));
 }
 
-  getMessages (id : number, page? : number, itemsPerpage? : number, messageContainer? : string) : Observable<any> {
+  getUser(id) : Observable<User> {
+  return this.http.get<User>(this.baseUrl + "user/" + id);
+  }
+
+
+
+  getMessages (id : number, page?, itemsPerpage?, messageContainer? : string) : Observable<any> {
     const paginatedResult : PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
-    let queryString = '?MessageContainer='+ messageContainer;
+    let params = new HttpParams();
+  
+    params = params.append("MessageContainer", messageContainer)
 
     if(page != null && itemsPerpage != null){
-      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerpage;
+      params = params.append("pageNumber", page);
+      params = params.append("pageSize", itemsPerpage);
     }
 
-    return this.http.get(this.baseUrl + 'user/' + id + '/messages' + queryString, this.jwt()).pipe(map((response : any) => {
-      paginatedResult.result = response;
+    return this.http.get<Message[]>(this.baseUrl + 'user/' + id + '/messages',{observe: 'response', params}).pipe(map(response => {
+      paginatedResult.result = response.body;
 
       if(response.headers.get('Pagination') != null){
         paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
       }
       return paginatedResult;
-    }),catchError(this.handleError)
+    })
     );
   }
 
   getMessageThread(id: number, recipientId : number ){
-    return this.http.get(this.baseUrl + "user/" + id + "/messages/thread" + recipientId, this.jwt()).pipe(map((response : Response) => {
-      return response;
-    }, catchError(this.handleError)));
+    return this.http.get<Message[]>(this.baseUrl + "user/" + id + "/messages/thread/" + recipientId);
   };
 
   sendMessage(id : number, message : Message){
-    return this.http.post(this.baseUrl + "user/" + id + "/messages", message, this.jwt()).pipe(map((response : Response) => {
-      return response;
-    }, catchError(this.handleError)));
+    return this.http.post<Message>(this.baseUrl + "user/" + id + "/messages", message);
   }
 
 
   deleteMessage(id : number, userId : number){
-    return this.http.post(this.baseUrl + "user/" + userId + "/messages/" + id, {},  this.jwt()).pipe(catchError(this.handleError));
+    return this.http.post(this.baseUrl + "user/" + userId + "/messages/" + id, {});
   };
 
   markAsRead(userId : number, messageId : number) {
-    return this.http.post(this.baseUrl + "user/" + userId + '/messages' + messageId + '/read', {}, this.jwt()).subscribe();
+    return this.http.post(this.baseUrl + "user/" + userId + '/messages' + messageId + '/read', {}).subscribe();
   }
   deletePhoto(userId : number, id: number){
-    return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id, this.jwt()).pipe(catchError(this.handleError));
+    return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id);
   }
 
 
   updateUser(id : number, user: User){
-    return this.http.put(this.baseUrl + "user/" + id, user, this.jwt()).pipe(catchError(this.handleError)); 
+    return this.http.put(this.baseUrl + "user/" + id, user); 
   }
 
   setMainPhoto(userId : number, id : number){
-   return this.http.post(this.baseUrl + "user/" + userId + "/photos/" + id + "/setMain", {}, this.jwt()).pipe(catchError(this.handleError));    
+   return this.http.post(this.baseUrl + "user/" + userId + "/photos/" + id + "/setMain", {});    
 }
 
   sendLike(id: number, recipientId : number){
 
-    return this.http.post(this.baseUrl + "user/" + id + "/like/" + recipientId, {}, this.jwt()).pipe(catchError(this.handleError));
+    return this.http.post(this.baseUrl + "user/" + id + "/like/" + recipientId, {});
 
   }
 
-private handleError(error: any) {
-  if(error.status === 400){
-    return Observable.throw(error._body);
-  }
-  const applicationerror = error.headers.get("Application-Error");
-  if (applicationerror) {
-    return Observable.throw(applicationerror);
-  }
-  const serverError = error;
-  let modelStatErrors = "";
-  if (serverError) {
-    for (const key in serverError) {
-      if (serverError[key]) {
-        modelStatErrors += serverError[key] + "\n";
-      }
-    }
-  }
-  return Observable.throw(modelStatErrors || "serverError");
-}
+
+
+// private jwt(){  
+//   let token = localStorage.getItem("token");
+//   if(token){
+//     let httpheaders = new HttpHeaders({ "Authorization": "Bearer " + token });
+//     httpheaders.append("Content-type" , "application/json");
+//     return {headers : httpheaders};
+//   }
+// }
+
 
 }

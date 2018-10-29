@@ -23,8 +23,8 @@ export class MessagesResolver implements Resolve<Message[]> {
         resolve(route : ActivatedRouteSnapshot): Observable<Message[]>{
             return this.userService.getMessages(this.authService.decodedToken.nameid, this.pageNumber, this.pageSize, this.messageContainer)
             .pipe(catchError(error =>  {
-                this.alertifyService.error("problem retrieving data");
-                //this.router.navigate(["/home"]);
+                this.alertifyService.error("Problem retrieving data");
+                this.router.navigate(["/home"]);
                 return of(null);
             }));
 

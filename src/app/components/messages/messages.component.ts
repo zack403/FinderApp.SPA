@@ -18,6 +18,7 @@ export class MessagesComponent implements OnInit {
   messages : Message[];
   pagination : Pagination;
   messageContainer = 'Unread';
+  isBusy = false;
 
   constructor(private spinner : NgxSpinnerService,
     private userService : UserService,
@@ -52,12 +53,15 @@ export class MessagesComponent implements OnInit {
  }
 
  deleteMessage(id : number){
+   this.isBusy = true;
    this.alertifyService.confirm("Are you sure you want to delete this message?", () => {
     this.userService.deleteMessage(id, this.authService.decodedToken.nameid).subscribe(() => {
       this.messages.splice(_.findIndex(this.messages, {id : id}), 1);
-      this.alertifyService.success("message successfully deleted");
+      this.alertifyService.success("Message successfully deleted");
+      this.isBusy = false;
     }, error => {
-      this.alertifyService.error("failed to delete the message");
+      this.alertifyService.error("Failed to delete the message");
+      this.isBusy = false;
     })
    })
  }

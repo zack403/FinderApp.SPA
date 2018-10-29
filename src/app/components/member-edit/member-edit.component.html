@@ -33,7 +33,7 @@
             <p>{{user.created | date: 'mediumDate' }}</p>
           </div>
           <div class=" button-row mb-2">
-              <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-block" mat-raised-button color="accent">Save Changes</button>
+              <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-block" mat-raised-button color="accent">Save Changes <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button>
           </div>
         </div>
       </div>

@@ -2,9 +2,10 @@ import { AlertifyService } from './../../services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import {tap} from "rxjs/operators";
 import { Message } from 'src/app/models/message';
 import * as _ from 'underscore';
-import { userInfo } from 'os';
+
 
 @Component({
   selector: 'app-member-messages',
@@ -15,6 +16,7 @@ export class MemberMessagesComponent implements OnInit {
 @Input()  userId : number;
 messages  : Message[];
 newMessage : any = {};
+isBusy = false;
 
 
   constructor(private userService : UserService,
@@ -27,14 +29,14 @@ newMessage : any = {};
   loadMessages(){
     const currentUserId = +this.authService.decodedToken.nameid;
     this.userService.getMessageThread(this.authService.decodedToken.nameid, this.userId)
-    .do(message => {
-      _.each(this.messages, (message : Message) => {
+    .pipe(tap(messages => {
+      _.each(messages, (message : Message) => {
         if(message.isRead === false && message.recipientId === currentUserId){
           this.userService.markAsRead(currentUserId, message.id);
         }
       })
-    })
-    .subscribe((message : any) => {
+    }))
+    .subscribe(message  => {
       this.messages = message;
     }, error => {
       this.alertifyService.error(error);
@@ -42,13 +44,16 @@ newMessage : any = {};
   }
 
   sendMessage(){
+    this.isBusy = true;
     this.newMessage.recipientId = this.userId;
-    this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((resp : any) => {
+    this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe(resp   => {
       this.messages.unshift(resp);
+      this.isBusy = false;
       //debugger;
       this.newMessage.content = '';
     }, error => {
       this.alertifyService.error(error);
+      this.isBusy = false;
     })
   }
 

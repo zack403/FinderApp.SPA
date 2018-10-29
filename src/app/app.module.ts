@@ -1,3 +1,4 @@
+import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './guard/prevent-unsafe-changes';
@@ -24,6 +25,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 
 
 import { NgModule } from "@angular/core";
+import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "../../node_modules/@angular/forms";
 
@@ -82,6 +84,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        // ...
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        whitelistedDomains: ['localhost:5000']
+      }
+    }),
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -114,7 +125,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     PreventUnsavedChanges,
     MatDatepickerModule,
     ListResolver,
-    MessagesResolver 
+    MessagesResolver,
+    ErrorInterceptorProvider
+     
 ],
   bootstrap: [AppComponent]
 })

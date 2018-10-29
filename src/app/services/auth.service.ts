@@ -1,10 +1,10 @@
 import { User } from './../models/User';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
-import { catchError } from "rxjs/operators";
-import { throwError, BehaviorSubject } from "rxjs";
-import { tokenNotExpired, JwtHelper } from "angular2-jwt";
+import { BehaviorSubject } from "rxjs";
+import {  JwtHelper } from "angular2-jwt";
 import { Injectable } from "@angular/core";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: "root"
@@ -17,8 +17,9 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
   private photoUrl = new BehaviorSubject<string>("assets/user.png");
   currentPhotoUrl = this.photoUrl.asObservable();
+  serverMessage : string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwtHelperService : JwtHelperService) {}
 
   changeMemberPhoto(photoUrl : string){
     this.photoUrl.next(photoUrl);
@@ -26,15 +27,14 @@ export class AuthService {
 
   login(model: any) {
     let httpheaders = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http
-      .post(this.baseUrl + "login", model, { headers: httpheaders })
-      .pipe(
-        map((response: any) => {
+    return this.http.post(this.baseUrl + "login", model, { headers: httpheaders })
+      .pipe(map((response: any) => {
           const user = response;
+          this.serverMessage = user.message;
           if (user && user.tokenString) {
             localStorage.setItem("token", user.tokenString);
             localStorage.setItem("user", JSON.stringify(user.user));
-            this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+            this.decodedToken = this.jwtHelperService.decodeToken(user.tokenString);
             this.currentUser = user.user;
             this.userToken = user.tokenString;
             if(this.currentUser.photoUrl != null){
@@ -43,34 +43,21 @@ export class AuthService {
               this.changeMemberPhoto("assets/user.png");
             }
           }
-        }),
-        catchError(this.handleError)
-      );
+        }));
   }
 
   register(user: User) {
     let httpheaders = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http.post(this.baseUrl + "register", user, {headers: httpheaders}).pipe(catchError(this.handleError));
+    return this.http.post(this.baseUrl + "register", user, {headers: httpheaders});
   }
 
   loggedIn() {
-    return tokenNotExpired("token");
+    const token =  this.jwtHelperService.tokenGetter();
+    if(!token){
+      return false;
+    }
+    return !this.jwtHelperService.isTokenExpired();
+
   }
 
-  private handleError(error: any) {
-    const applicationerror = error.headers.get("Application-Error");
-    if (applicationerror) {
-      return throwError(applicationerror);
-    }
-    const servererror = error;
-    let modelStatErrors = "";
-    if (servererror) {
-      for (const key in servererror) {
-        if (servererror[key]) {
-          modelStatErrors += servererror[key] + "\n";
-        }
-      }
-    }
-    return throwError(modelStatErrors || "servererror");
-  }
 }

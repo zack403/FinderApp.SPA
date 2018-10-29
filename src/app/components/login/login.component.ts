@@ -32,11 +32,9 @@ export class LoginComponent implements OnInit {
     this.isBusy = true;
     this.authservice.login(this.model).subscribe(data => {
       this.isBusy = false;
-        this.alertservice.success("logged in successsfully");
-        
+        this.alertservice.success(this.authservice.serverMessage);
         this.router.navigate(["/members"]);
-      },
-      error => {
+      }, error => {
         this.isBusy = false;
         this.alertservice.error(error);
       }

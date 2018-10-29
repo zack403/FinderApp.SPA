@@ -1,31 +1,31 @@
 <nav class="navbar  navbar-expand-lg navbar-dark  bg-dark mb-4 ">
   <div class="container">
-    <a class="navbar-brand text-warning" [routerLink]="['/home']" routerLinkActive="router-link-active">Finder App</a>
+    <a class="navbar-brand text-white font-weight-bold" [routerLink]="['/home']" routerLinkActive="router-link-active">Finder App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li>
-        </li>
+     
         <li routerLinkActive="router-link-active" class="nav-item ">
-          <a class="text-warning nav-link" [routerLink]="['/members']">Matches </a>
+          <a class="text-white nav-link" [routerLink]="['/members']">Matches </a>
         </li>
         <li routerLinkActive="router-link-active" class="nav-item">
-          <a class="text-warning nav-link" [routerLink]="['/lists']">Lists</a>
+          <a class="text-white nav-link" [routerLink]="['/lists']">Lists</a>
+          
         </li>
 
         <li routerLinkActive="router-link-active" class=" nav-item">
-          <a class="text-warning nav-link " [routerLink]="['/messages']">Messages</a>
+          <a class="text-white nav-link " [routerLink]="['/messages']">Messages</a>
         </li>
       </ul>
       <ul *ngIf="loggedIn()" class="navbar-nav">
         <li>
-            <img src="{{photoUrl}}" alt="">
+            <img  src="{{photoUrl}}" alt="">
         </li>
         <li ngbDropdown class="nav-item dropdown">
-          <a ngbDropdownToggle class="text-warning nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown">Welcome
+          <a ngbDropdownToggle class="text-white nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown">Welcome
             {{authservice.decodedToken?.unique_name | titlecase}}
           </a>
           <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
@@ -41,7 +41,7 @@
     </ul>
     <ul *ngIf="!loggedIn()" class="navbar-nav ml-auto">
         <li routerLinkActive="" class="nav-item">
-            <a class="nav-link text-warning" [routerLink]="['/login']">Member login <i class="fa fa-arrow-right"></i></a>
+            <a class="nav-link text-white" [routerLink]="['/login']">Member login <i class="fa fa-arrow-right"></i></a>
           </li>
     </ul>
     <!-- <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline ml-auto my-2 my-lg-0" novalidate>

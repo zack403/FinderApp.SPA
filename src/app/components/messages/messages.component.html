@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="btn-group">
-      <button color="warn" [(ngModel)]="messageContainer" btnRadio="Unread" (click)="loadMessages()" >
+      <button mat-raised-button color="warn" [(ngModel)]="messageContainer" btnRadio="Unread" (click)="loadMessages()" >
         <i class="fa fa-envelope"></i>Unread
       </button>
-      <button color="accent" [(ngModel)]="messageContainer" btnRadio="Inbox" (click)="loadMessages()" >
+      <button mat-raised-button color="accent" [(ngModel)]="messageContainer" btnRadio="Inbox" (click)="loadMessages()" >
         <i class="fa fa-envelope-open"></i>Inbox
       </button>
-      <button color="primary" [(ngModel)]="messageContainer" btnRadio="Outbox" (click)="loadMessages()" >
+      <button class="btn btn-success"  [(ngModel)]="messageContainer" btnRadio="Outbox" (click)="loadMessages()" >
         <i class="fa fa-paper-plane"></i>Outbox
       </button>
     </div>
@@ -42,7 +42,11 @@
     </td>
     <td>{{message.messageSent | timeAgo}}</td>
     <td>
-      <button (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-danger">Delete</button>
+      <button type="button" mat-icon-button color="warn" (click)="$event.stopPropagation()"
+       (click)="deleteMessage(message.id)" 
+       class="btn btn-danger">
+       <mat-icon>delete</mat-icon>
+      </button>
     </td>
     </tr>
   </table>

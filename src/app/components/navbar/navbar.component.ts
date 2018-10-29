@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   login() {
     this.authservice.login(this.model).subscribe(
       data => {
-        this.alertservice.success("logged in successsfully");
+        this.alertservice.success("Logged in successsfully");
         this.router.navigate(["/members"]);
       },
       error => {
@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
     this.authservice.currentUser = null;
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    this.alertservice.message("logged out");
+    this.alertservice.message("Logged out");
     this.router.navigate(["/home"]);
   }
   loggedIn() {

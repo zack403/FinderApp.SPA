@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { AlertifyService } from './../../services/alertify.service';
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/User';
@@ -17,7 +18,7 @@ user: User;
 galleryOptions: NgxGalleryOptions[];
 galleryImages: NgxGalleryImage[];
 
-  constructor(private userService : UserService, private alertifyService : AlertifyService, private route : ActivatedRoute) { }
+  constructor(private userService : UserService, private authService : AuthService, private alertifyService : AlertifyService, private route : ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -25,10 +26,11 @@ galleryImages: NgxGalleryImage[];
     });
 
     this.route.queryParams.subscribe(params => {
-      this.memberTabs._tabs[params['tab']].active = true;
+      let selectedTab = params['tab'];
+      this.memberTabs._tabs[selectedTab ? selectedTab : 0].active = true;
     });
     
-    // this.loadUser();
+     this.loadUser();
     this.galleryOptions = [
       {
         width : '500px',
@@ -40,7 +42,7 @@ galleryImages: NgxGalleryImage[];
 
       }
     ];
-    // this.galleryImages = this.getImages();
+     this.galleryImages = this.getImages();
   }
   getImages(){
     const imagesUrl = [];
@@ -58,14 +60,16 @@ galleryImages: NgxGalleryImage[];
     selectedTab(tabId : number){
      this.memberTabs._tabs[tabId].active = true;
     }
-//   loadUser(){
-// this.userService.getUser(+this.route.snapshot.params['id']).subscribe(response => {
-//   this.user = response;
-// }, error => {
-//   this.alertifyService.error(error);
-// })
-//   }
+  loadUser(){
+this.userService.getUser(+this.route.snapshot.params['id']).subscribe(response => {
+  this.user = response;
+}, error => {
+  this.alertifyService.error(error);
+})
+  }
 
-  
+loggedIn() {
+  return this.authService.loggedIn();
+}
 
 }

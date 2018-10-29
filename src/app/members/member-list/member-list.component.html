@@ -1,6 +1,6 @@
 
   <div class="container text-center">
-  <h2>Your matches -  found</h2>
+  <h2>Your matches - {{pagination.totalItems}} found</h2>
   </div>
 
  <div class="container">
@@ -22,21 +22,21 @@
     </div>
 
     <button type="submit" mat-raised-button color="warn" style="margin-left: 10px">Apply Filters</button>
-    <button type="button" mat-raised-button color="accent" (click)="resetFilters()" style="margin-left: 10px">Reset Filter</button>
+    <button type="button" mat-raised-button color="accent" (click)="resetFilters()" style="margin-left: 10px">Reset Filter <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i></button>
   
 
     </form>
     <div class="pull-right">
         <label style="margin-right: 10px">Order By: </label>
         <div class="btn-group">
-          <button type="button" name="orderBy" (click)="loadUser()" [(ngModel)]="userParams.orderBy" color="primary" mat-raised-button btnRadio="lastActive">LastActive</button>
-          <button type="button" name="orderBy" (click)="loadUser()" [(ngModel)]="userParams.orderBy" color="warn" mat-raised-button btnRadio="created">Newest Members</button>
+          <button type="button" name="orderBy" (click)="loadUsers()" [(ngModel)]="userParams.orderBy" color="primary" mat-raised-button btnRadio="lastActive">LastActive <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button>
+          <button type="button" name="orderBy" (click)="loadUsers()" [(ngModel)]="userParams.orderBy" color="warn" mat-raised-button btnRadio="created">Newest Members <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button>
         </div>
   
       </div>
   </div> 
   <br>
-  <div class="row">
+  <div class="row equal">
     <div  *ngFor="let user of users" class="col-lg-2 col-md-3 mb-3 col-sm-6">
       <app-member-card [user]= "user"></app-member-card>
     </div>
@@ -44,7 +44,11 @@
 </div> 
 
 <div class="container text-center">
-  <pagination [boundaryLinks]="true"  class="pagination-sm" 
+  <pagination [boundaryLinks]="true"  class="pagination-sm"
+  [totalItems]="pagination.totalItems"
+  [itemsPerPage]="pagination.itemsPerPage"
+  [(ngModel)]="pagination.currentPage" 
+  (pageChanged)="pageChanged($event)"
   previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
 </pagination>
 </div>       

@@ -46,11 +46,12 @@
     <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
       <div class="input-group">
         <input type="text" 
+        name="sendmessage"
         class="form-control input-sm" 
         [(ngModel)]="newMessage.content"
         required
         placeholder="send a private message">
-        <span class="input-group-btn"><button [disabled]="messageForm.invalid" class="btn btn-primary btn-sm">Send</button></span>
+        <span class="input-group-btn"><button [disabled]="messageForm.invalid" mat-raised-button color="accent" class=" btn-sm">Send <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button></span>
         </div>
     </form>
   </div>

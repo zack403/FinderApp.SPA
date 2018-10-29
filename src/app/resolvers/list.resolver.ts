@@ -8,9 +8,9 @@ import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ListResolver implements Resolve<User[]> {
-    // pageSize = 5;
-    // pageNumber = 1;
-    // likesParam = 'Likers';
+    pageSize = 5;
+    pageNumber = 1;
+    likesParam = 'Likers';
     
 
     constructor(private userService: UserService, 
@@ -19,8 +19,8 @@ export class ListResolver implements Resolve<User[]> {
 
         
         resolve(route : ActivatedRouteSnapshot): Observable<User[]>{
-            return this.userService.getUsers().pipe(catchError(error =>  {
-                this.alertifyService.error("problem retrieving data");
+            return this.userService.getUsers(this.pageNumber, this.pageSize, null, this.likesParam).pipe(catchError(error =>  {
+                this.alertifyService.error("Problem retrieving data");
                 this.router.navigate(["/home"]);
                 return of(null);
             }));
