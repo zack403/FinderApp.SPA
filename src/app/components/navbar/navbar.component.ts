@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 export class NavbarComponent implements OnInit {
   model: any = {};
   photoUrl : string;
+  navbarOpen = false;
+
 
   constructor(
     public authservice: AuthService,
@@ -22,6 +24,11 @@ export class NavbarComponent implements OnInit {
     this.authservice.currentPhotoUrl.subscribe(photourl => {
       this.photoUrl = photourl;
     })
+  }
+
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
   login() {

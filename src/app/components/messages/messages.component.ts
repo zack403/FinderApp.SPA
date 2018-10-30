@@ -60,7 +60,7 @@ export class MessagesComponent implements OnInit {
       this.alertifyService.success("Message successfully deleted");
       this.isBusy = false;
     }, error => {
-      this.alertifyService.error("Failed to delete the message");
+      this.alertifyService.error("Error while trying to delete the message");
       this.isBusy = false;
     })
    })
