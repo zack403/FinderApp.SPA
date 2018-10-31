@@ -5,7 +5,6 @@ import { User } from './../../models/User';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
-import { MatTab, MatTabGroup } from '@angular/material';
 
 @Component({
   selector: 'app-member-detail',
@@ -13,10 +12,11 @@ import { MatTab, MatTabGroup } from '@angular/material';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-@ViewChild('memberTabs') memberTabs : MatTabGroup
 user: User;
 galleryOptions: NgxGalleryOptions[];
 galleryImages: NgxGalleryImage[];
+selectedIndex:number=0;
+
 
   constructor(private userService : UserService, private authService : AuthService, private alertifyService : AlertifyService, private route : ActivatedRoute) { }
 
@@ -25,10 +25,7 @@ galleryImages: NgxGalleryImage[];
       this.user = data['user'];
     });
 
-    this.route.queryParams.subscribe(params => {
-      let selectedTab = params['tab'];
-      this.memberTabs._tabs[selectedTab ? selectedTab : 0].active = true;
-    });
+    
     
      this.loadUser();
     this.galleryOptions = [
@@ -57,15 +54,26 @@ galleryImages: NgxGalleryImage[];
     return imagesUrl;
   }
 
-    selectedTab(tabId : number){
-     this.memberTabs._tabs[tabId].active = true;
-    }
+  gotToMessageTab(){
+    this.selectedIndex=3;
+  }
+
+ 
+
   loadUser(){
-this.userService.getUser(+this.route.snapshot.params['id']).subscribe(response => {
+  this.userService.getUser(+this.route.snapshot.params['id']).subscribe(response => {
   this.user = response;
-}, error => {
+  }, error => {
   this.alertifyService.error(error);
-})
+ })
+  }
+
+  sendLike(id : number) {
+    this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(response => {
+      this.alertifyService.success(`You have liked ${this.user.knownAs}`);
+    }, error => {
+      this.alertifyService.error(error);
+    });
   }
 
 loggedIn() {

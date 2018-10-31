@@ -6,35 +6,37 @@
  <div class="container">
    <div class="row">
     <form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
-<div class="form-group">
-  <label for="minAge" class="font-weight-bold">Age From</label>
-  <input type="number" class="form-control" style="width: 70px;" id="minAge" [(ngModel)]="userParams.minAge" name="minAge">
+<div class="form-group" >
+  <label id="search" for="minAge" class="font-weight-bold">Age From:</label>
+  <input   type="number" class="form-control" style="width: 70px;" id="search" [(ngModel)]="userParams.minAge" name="minAge">
 </div>
-<div class="form-group">
-    <label for="maxAge" class="font-weight-bold">Age To</label>
+<div  class="form-group">
+    <label for="maxAge" class="font-weight-bold ml-2">Age To:</label>
     <input type="number" class="form-control" style="width: 70px;" id="maxAge" [(ngModel)]="userParams.maxAge" name="maxAge">
   </div>
-  <div class="form-group">
-      <label for="gender" class="font-weight-bold">Show: </label>
+  <div  class="form-group">
+      <label for="gender" class="font-weight-bold ml-2">Show: </label>
       <select name="gender" style="width: 130px;" class="form-control" [(ngModel)]="userParams.gender" id="gender">
         <option *ngFor="let gender of genderList" [value]="gender.value">{{gender.display}}</option>
       </select>
     </div>
 
+    <div id="filterButton" class="btn-group">
     <button type="submit" mat-raised-button color="warn" style="margin-left: 10px">Apply Filters</button>
     <button type="button" mat-raised-button color="accent" (click)="resetFilters()" style="margin-left: 10px">Reset Filter <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i></button>
-  
+  </div>
 
     </form>
-    <div class="pull-right">
-        <label style="margin-right: 10px">Order By: </label>
-        <div class="btn-group">
+  </div>
+  <div class="row">
+    <div id="orderBy" class="pull-right">
+        <label class="font-weight-bold ml-2">Order By: </label>
+    </div>
+  </div>
+        <div class="btn-group" id="btngroup">
           <button type="button" name="orderBy" (click)="loadUsers()" [(ngModel)]="userParams.orderBy" color="primary" mat-raised-button btnRadio="lastActive">LastActive <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button>
           <button type="button" name="orderBy" (click)="loadUsers()" [(ngModel)]="userParams.orderBy" color="warn" mat-raised-button btnRadio="created">Newest Members <i *ngIf="isBusy" class="fa fa-spinner fa-spin"></i> </button>
-        </div>
-  
-      </div>
-  </div> 
+        </div>  
   <br>
   <div class="row equal">
     <div  *ngFor="let user of users" class="col-lg-2 col-md-3 mb-3 col-sm-6">

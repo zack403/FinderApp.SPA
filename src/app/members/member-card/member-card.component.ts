@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { AlertifyService } from './../../services/alertify.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -12,7 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MemberCardComponent implements OnInit {
 @Input() user : User;
-constructor(private spinner : NgxSpinnerService, private authService : AuthService, private alertifyService : AlertifyService, private userService  : UserService) { }
+
+constructor(private spinner : NgxSpinnerService, 
+  private authService : AuthService, 
+  private alertifyService : AlertifyService, 
+  private userService  : UserService, private route : Router) { }
 
 ngOnInit() {
   this.spinner.show(); 
@@ -20,6 +25,8 @@ ngOnInit() {
     this.spinner.hide(); 
   }, 1000);
 }
+
+
 
   sendLike(id : number) {
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(response => {

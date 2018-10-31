@@ -95,7 +95,7 @@ getUsers(page?, itemsPerPage?, userParams?: any, likesParam?: string) {
   };
 
   markAsRead(userId : number, messageId : number) {
-    return this.http.post(this.baseUrl + "user/" + userId + '/messages' + messageId + '/read', {}).subscribe();
+    return this.http.post(this.baseUrl + "user/" + userId + '/messages/' + messageId + '/read', {}).subscribe();
   }
   deletePhoto(userId : number, id: number){
     return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id);
