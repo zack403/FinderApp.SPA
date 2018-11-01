@@ -4,7 +4,25 @@
 }
 
 .image{
-     height:40em; background-size:cover; width:auto;
-     background-image:url('/assets/lion.jpg');
+     height:60em; background-size:cover; width:auto;
+     background-image:url('/assets/hand.jpg');
      background-position:50% 50%;
    }
+
+.register {
+    margin-top : 15%;
+}
+
+@media only screen and  (width : 1024px)  {
+    .register {
+        margin-top : 35%;
+    }
+    
+}
+
+.wrap {
+    min-height: 100vh;
+}
+.footer {
+    height: 100px;
+}

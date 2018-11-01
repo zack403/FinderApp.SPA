@@ -5,12 +5,13 @@ import { BehaviorSubject } from "rxjs";
 import {  JwtHelper } from "angular2-jwt";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  baseUrl = "http://localhost:5000/api/auth/";
+  baseUrl = environment.apiUrl;
   userToken: any;
   decodedToken: any;
   currentUser : User;
@@ -27,7 +28,7 @@ export class AuthService {
 
   login(model: any) {
     let httpheaders = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http.post(this.baseUrl + "login", model, { headers: httpheaders })
+    return this.http.post(this.baseUrl + "auth/login", model, { headers: httpheaders })
       .pipe(map((response: any) => {
           const user = response;
           this.serverMessage = user.message;
@@ -48,7 +49,7 @@ export class AuthService {
 
   register(user: User) {
     let httpheaders = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http.post(this.baseUrl + "register", user, {headers: httpheaders});
+    return this.http.post(this.baseUrl + "auth/register", user, {headers: httpheaders});
   }
 
   loggedIn() {

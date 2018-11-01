@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.prod';
 import { EventEmitter } from '@angular/core';
 import { AlertifyService } from './../../services/alertify.service';
 import { AuthService } from './../../services/auth.service';
@@ -17,7 +18,7 @@ export class PhotoEditorComponent implements OnInit {
   @Input() photos : Photo[];
   uploader : FileUploader; 
   hasBaseDropZoneOver : false;
-  baseUrl = "http://localhost:5000/api/";
+  baseUrl = environment.apiUrl;
   currentMain : Photo;
   isBusy = false;
    

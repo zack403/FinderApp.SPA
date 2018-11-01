@@ -1,5 +1,5 @@
 <!-- Reactive Forms -->
-<div class="card ">
+<div class="card mt-4 ">
   <div class="card-header text-center bg-dark text-white">
     <h1><i class="fa fa-sign-in mr-1"></i>Register</h1>
   </div>
@@ -17,24 +17,24 @@
           </label>
         </div>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('username').erorrs && registerForm.get('username').touched}">
-          <mat-icon class="mr-1" color="warn" matPrefix>person</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('username').errors && registerForm.get('username').touched}">
+          <mat-icon class="mr-1"  matPrefix>person</mat-icon>
           <input matInput name="username" formControlName="username" type="text" placeholder=" Username">
           <span class="text-danger" *ngIf="registerForm.controls['username'].hasError('required') && registerForm.get('username').touched">
             Username is required
           </span>
         </mat-form-field>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('knownAs').erorrs && registerForm.get('knownAs').touched}">
-          <mat-icon class="mr-1" color="warn" matPrefix>person</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('knownAs').errors && registerForm.get('knownAs').touched}">
+          <mat-icon class="mr-1"  matPrefix>person</mat-icon>
           <input matInput name="knownAs" formControlName="knownAs" type="text" placeholder=" KnownAs">
           <span class="text-danger" *ngIf="registerForm.controls['knownAs'].hasError('required') && registerForm.get('knownAs').touched">
             KnownAs is required
           </span>
         </mat-form-field>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('dateOfBirth').erorrs && registerForm.get('dateOfBirth').touched}">
-            <mat-icon class="mr-1" color="warn" matPrefix>date_range</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('dateOfBirth').errors && registerForm.get('dateOfBirth').touched}">
+            <mat-icon class="mr-1"  matPrefix>date_range</mat-icon>
             <input matInput formControlName="dateOfBirth" [matDatepicker]="picker" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker color="warn" #picker></mat-datepicker>
@@ -44,33 +44,33 @@
           </mat-form-field>
    
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('city').erorrs && registerForm.get('city').touched}">
-          <mat-icon class="mr-1" color="warn" matPrefix>my_location</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('city').errors && registerForm.get('city').touched}">
+          <mat-icon class="mr-1"  matPrefix>my_location</mat-icon>
           <input matInput name="city" formControlName="city" type="text" placeholder=" City">
           <span class="text-danger" *ngIf="registerForm.controls['city'].hasError('required') && registerForm.get('city').touched">
             City is required
           </span>
         </mat-form-field>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('country').erorrs && registerForm.get('country').touched}">
-          <mat-icon class="mr-1" color="warn" matPrefix>my_location</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('country').errors && registerForm.get('country').touched}">
+          <mat-icon class="mr-1"  matPrefix>my_location</mat-icon>
           <input matInput name="country" formControlName="country" type="text" placeholder=" Country">
           <span class="text-danger" *ngIf="registerForm.controls['country'].hasError('required') && registerForm.get('country').touched">
             Country is required
           </span>
         </mat-form-field>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('password').erorrs && registerForm.get('password').touched}">
-          <mat-icon class="mr-1" color="warn" matPrefix>lock</mat-icon>
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('password').errors && registerForm.get('password').touched}">
+          <mat-icon class="mr-1"  matPrefix>lock</mat-icon>
           <input matInput name="password" formControlName="password" type="password" placeholder="Password">
           <span class="text-danger" *ngIf="registerForm.controls['password'].hasError('required') && registerForm.get('password').touched">
             Password is required
           </span>
         </mat-form-field>
 
-        <mat-form-field [ngClass]="{'has-error': registerForm.get('confirmPassword').erorrs && registerForm.get('confirmPassword').touched
+        <mat-form-field [ngClass]="{'has-error': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched
       || registerForm.get('confirmPassword').touched && registerForm.hasError('mismatch')}">
-          <mat-icon class="mr-1" color="warn" matPrefix>lock</mat-icon>
+          <mat-icon class="mr-1"  matPrefix>lock</mat-icon>
           <input matInput name="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm Password">
           <span class="text-danger" *ngIf="registerForm.controls['confirmPassword'].hasError('required') && registerForm.get('confirmPassword').touched">
             Confirm Password is required
@@ -83,8 +83,8 @@
 
 
         <div class="button-row">
-          <button mat-raised-button [disabled]="registerForm.invalid" class="btn btn-outline-warning mr-2" type="submit">Register</button>
-          <button mat-raised-button class="btn btn-outline-warning" (click)="cancel()" type="submit">Cancel</button>
+          <button mat-raised-button [disabled]="registerForm.invalid" class="btn btn-outline-dark mr-2" type="submit">Register</button>
+          <button mat-raised-button class="btn btn-outline-dark" (click)="cancel()" type="submit">Cancel</button>
         </div>
       </div>
     </form>

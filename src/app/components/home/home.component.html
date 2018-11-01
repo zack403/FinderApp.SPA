@@ -1,23 +1,34 @@
- <div  *ngIf="!registerMode && !loggedIn()" style="text-align:center">
-  <h1>
-    Find Your Match
+
+ <div class="wrap">
+ <div  *ngIf="!registerMode && !loggedIn()" class="image  " style="text-align:center">
+  <h1 class="text-white ">
+    Meet People aorund the world, chat and make friends....
   </h1>
-  <p class="lead">Come on in to view your matches.. All you need to do is sign up!</p>
+  <p class="lead text-white">Come on in to view your matches.. All you need to do is sign up!</p>
   <div class="text-center">
-    <button (click)="registerToggle()" color="warn" class=" mr-2" mat-raised-button>Register</button>
-    <button color="accent" mat-raised-button>Learn More</button>
+    <button (click)="registerToggle()" color="primary" class=" mr-2" mat-raised-button>Register</button>
+    <!-- <button (click)="learnMore()" color="accent" mat-raised-button>Learn More</button> -->
+    
   </div>
 </div>
 
 <div class="image" *ngIf="loggedIn()">
 
-  <p>Home contents will go here.......</p>
+  <div class="container">
+
+  </div>
 
 </div>
-
 
 <div *ngIf="registerMode && !loggedIn()" class=" container">
   <div class="row">
       <app-register  (cancelRegisterMode)="cancelRegisterMode($event)"></app-register>
   </div>
 </div> 
+</div>
+
+  <footer class="text-white text-center font-weight-bold footer bg-dark ">
+   <span class="lead">Designed by</span> Zack &copy; 
+  </footer>
+
+

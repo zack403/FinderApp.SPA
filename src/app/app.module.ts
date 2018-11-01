@@ -1,3 +1,4 @@
+import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
@@ -12,7 +13,6 @@ import { AuthGuard } from "./guard/auth.guard";
 import { appRoutes } from "./route";
 import { MemberListComponent } from "./members/member-list/member-list.component";
 import { AuthService } from "./services/auth.service";
-import { NavbarComponent } from "./components/Navbar/Navbar.component";
 // tslint:disable-next-line:quotemark
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -61,6 +61,15 @@ import { ListResolver } from './resolvers/list.resolver';
 import { MessagesResolver } from './resolvers/message.resolver';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+export function getAccessToken(): string {
+  return localStorage.getItem("token");
+}
+
+export const jwtConfig = {
+  tokenGetter : getAccessToken,
+  whitelistedDomains : ['localhost:5000']
+}
+
 
 @NgModule({
   declarations: [
@@ -85,13 +94,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     BrowserAnimationsModule,
     HttpClientModule,
     JwtModule.forRoot({
-      config: {
-        // ...
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        },
-        whitelistedDomains: ['localhost:5000']
-      }
+      config: jwtConfig
     }),
     FormsModule,
     ReactiveFormsModule,

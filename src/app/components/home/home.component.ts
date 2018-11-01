@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     this.registerMode = true;
   }
 
+
   opendialog() {
     this.dialog.open(RegisterComponent);
   }
